@@ -1,3 +1,18 @@
+
+/*
+ * 3.3V Al aire=673 V=2.83
+ *      En agua=177 V=0.94 A=
+ *      
+ * 5V   Al aire=1018 V=4.53
+ *      En agua=160  V=0.94
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+ 
 const int sensorPin = A0;
  
 void setup() {
