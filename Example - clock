@@ -1,3 +1,5 @@
+//Conectar GND !
+
 #include <stdio.h>
 #include <DS1302.h>
 
