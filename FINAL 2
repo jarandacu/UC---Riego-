@@ -1,0 +1,102 @@
+/*
+ * 3.3V Al aire=673 V=2.83
+ *      En agua=177 V=0.94 A=
+ *      
+ * 5V   Al aire=1018 V=4.53
+ *      En agua=160  V=0.94
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+ 
+const int sensorPinG = A0;
+const int CCG        = 1;
+const int PMPG       = 1;
+const int sensorPinM = A1;
+const int CCM        = 1;
+const int PMPM       = 1;
+const int sensorPinP = A2;
+const int CCP        = 1;
+const int PMPP       = 1;
+const int sensorPinC = A3;
+const int CCC        = 1;
+const int PMPC       = 1;
+const int UR         = 1;
+
+int FP               = 0;
+int RG               = 1;
+int RM               = 2;
+int RP               = 3;
+int RC               = 4;}
+
+void setup() {
+  pinMode(FP, OUTPUT);
+  pinMode(RG, OUTPUT);
+  pinMode(RM, OUTPUT);
+  pinMode(RP, OUTPUT);
+  pinMode(RC, OUTPUT);  
+  Serial.begin(9600);
+}
+
+
+FALTA CARGAR !
+
+void loop() 
+{
+   int humedadG = analogRead(sensorPinG);   
+   int humedadM = analogRead(sensorPinM);   
+   int humedadP = analogRead(sensorPinP);   
+   int humedadC = analogRead(sensorPinC);
+   
+   Serial.println(humedadG);
+   Serial.println(humedadM);
+   Serial.println(humedadP);
+   Serial.println(humedadC);
+  
+   while(humedadG < (CCG-PMPG)*UR+PMPG)
+   {
+    digitalWrite(FP, HIGH);
+    digitalWrite(RG, HIGH);        
+   }
+   digitalWrite(FP, LOW);
+   digitalWrite(RG, LOW);    
+
+   
+   if(humedadM < (CCM-PMPM)*UR+PMPM)
+   {
+      //Serial.println("Encendido");  
+      //hacer las acciones necesarias
+    digitalWrite(FP, HIGH);
+    digitalWrite(RM, HIGH);        
+   }
+   digitalWrite(FP, LOW);
+   digitalWrite(RM, LOW);
+
+   
+   if(humedadG < (CCP-PMPP)*UR+PMPP)
+   {
+      //Serial.println("Encendido");  
+      //hacer las acciones necesarias
+    digitalWrite(FP, HIGH);
+    digitalWrite(RP, HIGH);        
+   }
+   digitalWrite(FP, LOW);
+   digitalWrite(RP, LOW);
+
+   
+   if(humedadG < (CCC-PMPC)*UR+PMPC)
+   {
+      //Serial.println("Encendido");  
+      //hacer las acciones necesarias
+    digitalWrite(FP, HIGH);
+    digitalWrite(RC, HIGH);        
+   }
+   digitalWrite(FP, LOW);
+   digitalWrite(RC, LOW);
+
+   
+   delay(1000);
+}
