@@ -1,0 +1,107 @@
+//DECLARAR VARIABLES
+//Relé x 4 - IN2 - Mesa medianas (A0 y AX).
+const int pin8 = 8;
+const int sensorPinMediana = A0;
+const int CCMediana = 170;
+const int UMediana = 200;
+//Relé x 4 - IN3 - Mesa almácigos (A1).
+const int pin9 = 9;
+const int sensorPinAlmacigo = A1;
+const int CCAlmacigo = 640;
+const int UAlmacigo = 700;
+//Relé x 4 - IN4 - Mesa Grandes (AX).
+const int pin10 = 10;
+const int sensorPinGrande = A3;
+const int CCGrande = 620;
+const int UGrande = 660;
+//Relé x 1 - Activar Fuente de poder.
+const int pin11 = 11;
+//Número Aleatorio
+int randNumber;  
+ 
+void setup() {
+  Serial.begin(9600);    //iniciar puerto serie
+  pinMode(pin8, OUTPUT);  //definir pin como salida
+  pinMode(pin9, OUTPUT);  //definir pin como salida
+  pinMode(pin10, OUTPUT);  //definir pin como salida
+  pinMode(pin11, OUTPUT);  //definir pin como salida
+}
+ 
+void loop(){
+  //Estado NC
+  digitalWrite(8,HIGH);
+  digitalWrite(9,HIGH);
+  digitalWrite(10,HIGH);
+  digitalWrite(11,LOW);
+  delay(1000);
+  
+    //Cargar Arduino
+    randomSeed(millis());
+    randNumber = random(10);
+    Serial.print("Número Aleatorio: ");
+    Serial.println(randNumber);
+    if(randNumber>3){
+      Serial.println("Cargando");
+      digitalWrite(11,HIGH);
+      delay(300000);
+    }
+    digitalWrite(11,LOW);
+
+  //Mesón plantas Medianas
+  int humedadMediana = analogRead(sensorPinMediana);
+   Serial.print("Humedad Mediana: ");
+   Serial.println(humedadMediana);
+   delay(2000);
+
+    while(humedadMediana > UMediana){
+    digitalWrite(11,HIGH);
+    Serial.print("Regado Mediana: ");
+    digitalWrite(8,LOW);
+    int humedadMediana2= analogRead(sensorPinMediana);
+    Serial.println(humedadMediana2);
+    delay(5000);
+    if(humedadMediana2 < CCMediana){
+      Serial.println("Término Riego Mediana");
+      break;
+      }}
+      digitalWrite(8,HIGH);
+
+ //Mesón plantas Almacigo
+   int humedadAlmacigo = analogRead(sensorPinAlmacigo);
+   Serial.print("Humedad Almácigo: ");
+   Serial.println(humedadAlmacigo);
+   delay(2000);
+
+    while(humedadAlmacigo > UAlmacigo){
+    digitalWrite(11,HIGH);
+    Serial.print("Regado Almacigo: ");
+    digitalWrite(9,LOW);
+    int humedadAlmacigo2= analogRead(sensorPinAlmacigo);
+    Serial.println(humedadAlmacigo2);
+    delay(5000);
+    if(humedadAlmacigo2 < CCAlmacigo){
+      Serial.println("Término Riego Almacigo");
+      break;
+      }}
+      digitalWrite(9,HIGH);
+
+      //Mesón plantas Grandes
+   int humedadGrande = analogRead(sensorPinGrande);
+   Serial.print("Humedad Grande: ");
+   Serial.println(humedadGrande);
+   delay(2000);
+    while(humedadGrande > UGrande){
+    digitalWrite(11,HIGH);
+    Serial.print("Regado Grande: ");
+    digitalWrite(10,LOW);
+    int humedadGrande2= analogRead(sensorPinGrande);
+    Serial.println(humedadGrande2);
+    delay(5000);
+    if(humedadGrande2 < CCGrande){
+      Serial.println("Término Riego Grande");
+      break;
+      }}
+digitalWrite(10,HIGH);
+      
+ 
+}
