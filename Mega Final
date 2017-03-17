@@ -19,26 +19,30 @@ D) 2 boj riego diario poca agua*/
 
 //Zona 1 - Riego frutales c/2 días inundación.
 const int pin1 = 8; //Pin conectado al arduino
-const int tiz1[3]={21,00,05}; //Hora de riego
-const int tz1 = 1*1000; //Tiempo de riego
+const int tiz1[3]={11,59,05}; //Hora de riego
+const int tz1 = 10*1000; //Tiempo de riego
+long millisz1=0;
 //**int cont1=1;
 
 //Zona 2  - Riego c/2 días.
 const int pin2 = 9; //Pin conectado al arduino
 const int tiz2[3]={9,30,05}; //Hora de riego
-const int tz2 = 300*1000; //Tiempo de riego
+const long tz2 = 300000; //Tiempo de riego
+long millisz2=0;
 //**int cont2=1;int cont1=1;
 
 //Zona 1 - Riego diario.
 const int pin3 = 10; //Pin conectado al arduino
 const int tiz3[3]={9,50,05}; //Hora de riego
 const int tiz32[3]={19,00,05}; //Hora de riego
-const int tz3 = 300*1000; //Tiempo de riego1;
+const long tz3 = 300000; //Tiempo de riego1;
+long millisz3=0;
 
 //Zona 1 - Riego diario poca agua.
 const int pin4 = 11; //Pin conectado al arduinogo
 const int tiz4[3]={9,10,05}; //Hora de riego
-const int tz4 = 300*1000; //Tiempo de riego
+const long tz4 = 300000; //Tiempo de riego
+long millisz4=0;
 
 void setup() {  
   pinMode(pin1, OUTPUT);  //definir pin como salida zona1
@@ -49,7 +53,7 @@ void setup() {
   Serial.begin(9600);
   //Setear el tiempo 
   //setTime(8,29,0,1,1,11); // set time to Saturday 8:29:00am Jan 1 2011
-  setTime(11,59,00,9,3,17); 
+  setTime(15,30,00,17,3,17); 
   
   //ALARMAS
   //Z1
@@ -97,7 +101,56 @@ void printDigits(int digits)
   Serial.print(digits);
 }
 
-void z1(){
+void z1(){ 
+   Serial.println("Riego Zona 1");
+   digitalWrite(pin1,LOW);
+    millisz1=millis();
+    Serial.println(millisz1);
+   while (millisz1 < tz1){
+      millisz1=millis();
+  }
+  digitalWrite(pin1,HIGH);
+  Serial.println("Término Riego Zona 1");
+}
+
+void z2(){ 
+   Serial.println("Riego Zona 2");
+   digitalWrite(pin2,LOW);
+    millisz2=millis();
+    Serial.println(millisz2);
+    Serial.println(tz2);
+   while (millisz2 < tz2){
+      millisz2=millis();
+  }
+  digitalWrite(pin2,HIGH);
+  Serial.println("Término Riego Zona 2");
+}
+
+void z3(){ 
+   Serial.println("Riego Zona 3");
+   digitalWrite(pin3,LOW);
+    millisz3=millis();
+    Serial.println(millisz3);
+   while (millisz3 < tz3){
+      millisz3=millis();
+  }
+  digitalWrite(pin3,HIGH);
+  Serial.println("Término Riego Zona 3");
+}
+
+void z4(){ 
+   Serial.println("Riego Zona 4");
+   digitalWrite(pin4,LOW);
+    millisz4=millis();
+    Serial.println(millisz4);
+   while (millisz4 < tz4){
+      millisz4=millis();
+  }
+  digitalWrite(pin4,HIGH);
+  Serial.println("Término Riego Zona 1");
+}
+
+/*void z1(){
   //*cont1=cont1+1;
   //*Serial.println("Entrar z1");
   //*if (cont1%2==0){
@@ -106,9 +159,9 @@ void z1(){
    delay(tz1);
    digitalWrite(pin1,HIGH);
    Serial.println("Término Riego Zona 1");}   
-   //*Serial.println("Salir z1");
+   //*Serial.println("Salir z1");*/
   
-
+/*
   void z2(){
    //*cont2=cont2+1;
    //*Serial.println("Entrar z2");
@@ -138,3 +191,4 @@ void z4(){
    digitalWrite(pin4,HIGH);
    Serial.println("Término Riego Zona 4");
   }
+  */
